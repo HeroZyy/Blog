@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MBlogMapper">
+
+    <resultMap type="MBlog" id="MBlogResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="title"    column="title"    />
+        <result property="description"    column="description"    />
+        <result property="content"    column="content"    />
+        <result property="gmtCreate"    column="gmt_create"    />
+        <result property="gmtModified"    column="gmt_modified"    />
+        <result property="status"    column="status"    />
+        <result property="deleted"    column="deleted"    />
+        <result property="author"    column="author"    />
+        <result property="img"    column="img"    />
+        <result property="bclass"    column="bclass"    />
+        <result property="column1"    column="column1"    />
+        <result property="column2"    column="column2"    />
+        <result property="column3"    column="column3"    />
+        <result property="column4"    column="column4"    />
+        <result property="column5"    column="column5"    />
+        <result property="video"    column="video"    />
+    </resultMap>
+
+    <sql id="selectMBlogVo">
+        select id, user_id, title, description, content, gmt_create, gmt_modified, status, deleted, author, img, bclass, column1, column2, column3, column4, column5, video from m_blog
+    </sql>
+
+    <select id="selectMBlogList" parameterType="MBlog" resultMap="MBlogResult">
+        <include refid="selectMBlogVo"/>
+        <where>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="img != null  and img != ''"> and img = #{img}</if>
+            <if test="bclass != null  and bclass != ''"> and bclass = #{bclass}</if>
+            <if test="column1 != null  and column1 != ''"> and column1 = #{column1}</if>
+            <if test="column2 != null  and column2 != ''"> and column2 = #{column2}</if>
+            <if test="column3 != null  and column3 != ''"> and column3 = #{column3}</if>
+            <if test="column4 != null  and column4 != ''"> and column4 = #{column4}</if>
+            <if test="video != null  and video != ''"> and video = #{video}</if>
+        </where>
+    </select>
+
+    <select id="selectMBlogById" parameterType="Long" resultMap="MBlogResult">
+        <include refid="selectMBlogVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMBlog" parameterType="MBlog" useGeneratedKeys="true" keyProperty="id">
+        insert into m_blog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="description != null">description,</if>
+            <if test="content != null">content,</if>
+            <if test="gmtCreate != null">gmt_create,</if>
+            <if test="gmtModified != null">gmt_modified,</if>
+            <if test="status != null">status,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="author != null">author,</if>
+            <if test="img != null">img,</if>
+            <if test="bclass != null">bclass,</if>
+            <if test="column1 != null">column1,</if>
+            <if test="column2 != null">column2,</if>
+            <if test="column3 != null">column3,</if>
+            <if test="column4 != null">column4,</if>
+            <if test="column5 != null">column5,</if>
+            <if test="video != null">video,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="description != null">#{description},</if>
+            <if test="content != null">#{content},</if>
+            <if test="gmtCreate != null">#{gmtCreate},</if>
+            <if test="gmtModified != null">#{gmtModified},</if>
+            <if test="status != null">#{status},</if>
+            <if test="deleted != null">#{deleted},</if>
+            <if test="author != null">#{author},</if>
+            <if test="img != null">#{img},</if>
+            <if test="bclass != null">#{bclass},</if>
+            <if test="column1 != null">#{column1},</if>
+            <if test="column2 != null">#{column2},</if>
+            <if test="column3 != null">#{column3},</if>
+            <if test="column4 != null">#{column4},</if>
+            <if test="column5 != null">#{column5},</if>
+            <if test="video != null">#{video},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMBlog" parameterType="MBlog">
+        update m_blog
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="gmtCreate != null">gmt_create = #{gmtCreate},</if>
+            <if test="gmtModified != null">gmt_modified = #{gmtModified},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="author != null">author = #{author},</if>
+            <if test="img != null">img = #{img},</if>
+            <if test="bclass != null">bclass = #{bclass},</if>
+            <if test="column1 != null">column1 = #{column1},</if>
+            <if test="column2 != null">column2 = #{column2},</if>
+            <if test="column3 != null">column3 = #{column3},</if>
+            <if test="column4 != null">column4 = #{column4},</if>
+            <if test="column5 != null">column5 = #{column5},</if>
+            <if test="video != null">video = #{video},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMBlogById" parameterType="Long">
+        delete from m_blog where id = #{id}
+    </delete>
+
+    <delete id="deleteMBlogByIds" parameterType="String">
+        delete from m_blog where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
